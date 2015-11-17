@@ -1,21 +1,21 @@
-function grown = convexHull(obj, r)
+function Xprime = convexHull(X, r)
 %first append the last element to the front and the front element to the
 %end
-grown=obj;
-obj = vertcat(obj(length(obj),:), obj, obj(1,:));
+Xprime=X;
+X = vertcat(X(length(X),:), X, X(1,:));
 
-    for i=2:length(obj)-1
-        phi = pi-atan2(obj(i-1,2)-obj(i,2),obj(i-1,1)-obj(i,1));
-        Rot_phi = [cos(phi) -sin(phi); sin(phi) cos(phi)];
-        nRot_phi = [cos(-phi) -sin(-phi); sin(-phi) cos(-phi)];
-        newPnt = (Rot_phi*(obj(i+1,:)-obj(i,:))');
-        theta = atan2(newPnt(2),newPnt(1));
-        ro = -theta/2;
-        nRot_ro = [cos(-ro) -sin(-ro); sin(-ro) cos(-ro)];
-        grown(i-1,:) = [0, (-r/cos(theta/2))*sign(theta)];
-        grown(i-1,:) = (nRot_phi*nRot_ro*grown(i-1,:)')';
-        grown(i-1,:) = grown(i-1,:) + obj(i,:);
-    end
+for i=2:length(X)-1
+    phi = pi-atan2(X(i-1,2)-X(i,2),X(i-1,1)-X(i,1));
+    Rot_phi = [cos(phi) -sin(phi); sin(phi) cos(phi)];
+    nRot_phi = [cos(-phi) -sin(-phi); sin(-phi) cos(-phi)];
+    newPnt = (Rot_phi*(X(i+1,:)-X(i,:))');
+    theta = atan2(newPnt(2),newPnt(1));
+    ro = -theta/2;
+    nRot_ro = [cos(-ro) -sin(-ro); sin(-ro) cos(-ro)];
+    Xprime(i-1,:) = [0, (-r/cos(theta/2))*sign(theta)];
+    Xprime(i-1,:) = (nRot_phi*nRot_ro*Xprime(i-1,:)')';
+    Xprime(i-1,:) = Xprime(i-1,:) + X(i,:);
+end
 
 end
     

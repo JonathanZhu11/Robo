@@ -1,9 +1,9 @@
-function [boundary, objects] = getObjectData(filename)
+function objects = getObjectData(filename)
     fileID=fopen(filename,'r');
     data = fscanf(fileID,'%f');
     fclose(fileID);
     numObjects=data(1);
-    objects={};
+    objects=cell(numObjects,1);
     index=2;
     for i=1:numObjects
         size=data(index);
@@ -16,7 +16,5 @@ function [boundary, objects] = getObjectData(filename)
         end
         objects{i}=A;
     end
-    boundary=objects{1};
-    objects(1) = [];
 
 end

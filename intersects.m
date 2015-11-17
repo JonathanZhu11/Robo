@@ -9,8 +9,6 @@ function int = intersects(edge1, edge2)
     else
         t = crossprod(q-p,s)/d;
         u = crossprod(q-p,r)/d;
-        
-        %Don't consider edges because visibility is not blocked
         if(t>0 && t<1 && u>0 && u<1)
             int=1;
         else
