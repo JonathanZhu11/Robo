@@ -9,7 +9,7 @@ function int = intersects(edge1, edge2)
     else
         t = crossprod(q-p,s)/d;
         u = crossprod(q-p,r)/d;
-        if(t>0 && t<1 && u>0 && u<1)
+        if(t>0.0001 && t<.9999 && u>0.0001 && u<.9999)
             int=1;
         else
             int=0;

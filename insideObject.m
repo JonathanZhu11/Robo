@@ -15,13 +15,13 @@ function in=insideObject(edge, objects)
             end
         end
         if(v1_index>0 && v2_index>0)
-            in=1;
+            if(~(abs(mod(v1_index,length(X))-mod(v2_index,length(X))))==1)
+                in=1;
+            end;
             return;
         elseif(v1_index>0 || v2_index>0)
-            in=0;
             return;
         end
-        
     end
 
 end
