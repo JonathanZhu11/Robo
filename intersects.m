@@ -4,7 +4,7 @@ function int = intersects(edge1, edge2)
     r = edge1(2,:)-p;
     s = edge2(2,:)-q;
     d = crossprod(r,s);
-    if(d==0)
+    if(abs(d)<0.0002)
         int=0;
     else
         t = crossprod(q-p,s)/d;

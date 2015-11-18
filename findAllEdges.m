@@ -1,11 +1,13 @@
 function edges = findAllEdges(vertices)
-    [numPoints, dim] = size(unique(vertices,'rows'));
-    C = nchoosek(1:numPoints,2);
-    numEdges = size(C,1);
-    edges = zeros(numEdges, dim, 2);
+    numVerts = length(vertices);
+    numEdges = nchoosek(numVerts,2);
 
-    for i=1:numEdges
-        edges(i,:,1) = vertices(C(i,1),:);
-        edges(i,:,2) = vertices(C(i,2),:);
+    edges=cell(numEdges,1);
+    index=1;
+    for i=1:numVerts
+        for j=i+1:numVerts
+            edges{index}=[vertices(i,:);vertices(j,:)];
+            index=index+1;
+        end
     end
 end
