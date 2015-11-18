@@ -76,7 +76,7 @@ function hwk4_team_15(start_goal, environment)
     %map out all possible paths
     
      for i=1:length(edges)
-         plot([edges{i}(1,1),edges{i}(1,2)],[edges{i}(2,1),edges{i}(2,2)],'r');
+         plot([edges{i}(1,1),edges{i}(2,1)],[edges{i}(1,2),edges{i}(2,2)],'r');
      end
 
     %map start and end points
