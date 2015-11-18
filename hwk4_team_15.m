@@ -53,12 +53,13 @@ function hwk4_team_15(start_goal, environment)
     
     %first obstacle --> environement wall
     boundary = objects{1,1};
-    grownObjects(1,:) = [];
-    objects(1,:) = [];
-    numVertices(1) = [];
-    
+%     grownObjects(1,:) = [];
+%     objects(1,:) = [];
+%     numVertices(1) = [];
+
     %find visibility Graph
-    [verts,edges] = visibilityGraph(start,goal,grownObjects);
+    [verts,edges] = visibilityGraph(start,goal,grownObjects(2:end), boundary);
+    
     %%%%% GUI MAP DISPLAY %%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%
     map_out = figure('Name', 'Environment');    
@@ -66,7 +67,7 @@ function hwk4_team_15(start_goal, environment)
     %map out the boundary
     fill(boundary(:,1),boundary(:,2),'w');
     %map out the objects in the map
-    for i=1:numObjects-1
+    for i=2:numObjects
         grown_ob = grownObjects{i};
         fill(grown_ob(1:numVertices(i),1),grown_ob(1:numVertices(i),2),'y');
         ob=objects{i};

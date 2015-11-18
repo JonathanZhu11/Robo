@@ -1,7 +1,10 @@
 %start is a point
 %goal is a point
 %objects is a cell array of polygons
-function [vertices, edges] = visibilityGraph(start, goal, objects)
+function [vertices, edges] = visibilityGraph(start, goal, objects, boundary)
+    
+    precision = 0.00001;
+
     numObjects = length(objects);
     polygonEdges = cell(1,1);
     %1st index = edge index
@@ -13,10 +16,12 @@ function [vertices, edges] = visibilityGraph(start, goal, objects)
     %generate a list of all vertices and polygon edges
     sizePoly=1;
     sizeVert=3;
+    
     for i=1:numObjects
         obj = objects{i};
+        objects{i} = roundto(obj, precision);
         obj = vertcat(obj(length(obj),:), obj);
-        disp(obj);
+     
         for j=1:length(obj)-1
             vertices(sizeVert,:)=obj(j,:);
             polygonEdges{sizePoly}=obj(j:j+1,:);
@@ -24,20 +29,24 @@ function [vertices, edges] = visibilityGraph(start, goal, objects)
             sizePoly=sizePoly+1;
         end
     end
-    disp(vertices);
+    vertices = roundto(vertices, precision);
+     vertices = removeVerticesInsideObjects(vertices, objects(2:end));
+    vertices = removeVerticesOutsideBoundary(vertices, boundary);
     allEdges = findAllEdges(vertices);
-    edges = polygonEdges;
+    edges = {};
     %check for visibility of all edges
     %add visible edges to output
+    
+    
     for i=1:length(allEdges)
+        allEdges{i} = roundto(allEdges{i}, precision);
         visible=1;
         for n=1:length(polygonEdges)
-            for j=1:length(polygonEdges{n})
-                if(intersects(allEdges{i},polygonEdges{j})==1)
-                    visible=0;
-                elseif(insideObject(allEdges{i},objects)==1)
-                    visible=0;
-                end
+            polygonEdges{n} = roundto(polygonEdges{n}, precision);
+            if(intersects(allEdges{i},polygonEdges{n})==1)
+                visible=0;
+            elseif(insideObject(allEdges{i},objects)==1)
+                visible=0;
             end
         end
         if(visible==1)
@@ -45,9 +54,12 @@ function [vertices, edges] = visibilityGraph(start, goal, objects)
         end
     end
     
-    for i=1:length(edges)
-        disp(edges{i})
-    end
     
         
+end
+
+
+function xround = roundto(x, d)
+if d<= 0, error('Error: Rounding precision must be > 0'); end
+xround = round(x/d)*d;
 end
