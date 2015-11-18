@@ -27,7 +27,6 @@ function [vertices, edges] = visibilityGraph(start, goal, objects)
     end
     
     allEdges = findAllEdges(vertices);
-    allEdges
     edges = polygonEdges;
     %check for visibility of all edges
     %add visible edges to output

@@ -1,8 +1,8 @@
 function int = intersects(edge1, edge2)
-    p = edge1(:,1);
-    q = edge2(:,2);
-    r = edge1(:,1)-p;
-    s = edge2(:,2)-q;
+    p = edge1(1,:);
+    q = edge2(1,:);
+    r = edge1(2,:)-p;
+    s = edge2(2,:)-q;
     d = crossprod(r,s);
     if(d==0)
         int=0;
