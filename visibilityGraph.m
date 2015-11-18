@@ -3,7 +3,7 @@
 %objects is a cell array of polygons
 function [vertices, edges] = visibilityGraph(start, goal, objects, boundary)
     
-    precision = 0.00001;
+    precision = 0.0001;
 
     numObjects = length(objects);
     polygonEdges = cell(1,1);
@@ -30,14 +30,14 @@ function [vertices, edges] = visibilityGraph(start, goal, objects, boundary)
         end
     end
     vertices = roundto(vertices, precision);
-     vertices = removeVerticesInsideObjects(vertices, objects(2:end));
+    vertices = removeVerticesInsideObjects(vertices, objects(2:end));
     vertices = removeVerticesOutsideBoundary(vertices, boundary);
     allEdges = findAllEdges(vertices);
     edges = {};
     %check for visibility of all edges
     %add visible edges to output
     
-    
+    edges = polygonEdges;
     for i=1:length(allEdges)
         allEdges{i} = roundto(allEdges{i}, precision);
         visible=1;
