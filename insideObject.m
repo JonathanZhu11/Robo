@@ -7,10 +7,10 @@ function in=insideObject(edge, objects)
         v1_index=-1;
         v2_index=-1;
         for j=1:length(X);
-            if(v1==X(j,:))
+            if(sum((v1-X(j,:)).^2)<0.002)
                 v1_index=j;
             end
-            if(v2==X(j,:))
+            if(sum((v2-X(j,:)).^2)<0.002)
                 v2_index=j;
             end
         end
@@ -23,7 +23,7 @@ function in=insideObject(edge, objects)
             end
             return;
         elseif(v1_index>0 || v2_index>0)
-                in=1;
+                in=0;
                 return;
         end
         
