@@ -3,7 +3,7 @@
 %objects is a cell array of polygons
 function [vertices, edges] = visibilityGraph(start, goal, objects)
     numObjects = length(objects);
-    polyEdges = zeros(1,2,2);
+    polygonEdges = zeros(1,2,2);
     %1st index = edge index
     %2nd index = vertex index
     %3rd indec = x or y value
@@ -18,19 +18,21 @@ function [vertices, edges] = visibilityGraph(start, goal, objects)
         obj = vertcat(obj(length(obj),:), obj);
         for j=2:length(obj)
             vertices(sizeVert,:)=obj(j,:);
-            polyEdges(sizePoly,:,:)=obj(j-1:j,:);
+            polygonEdges(sizePoly,:,:)=obj(j-1:j,:);
             sizeVert=sizeVert+1;
             sizePoly=sizePoly+1;
         end
     end
+    
     allEdges = findAllEdges(vertices);
-    edges = polyEdges;
+    
+    edges = polygonEdges;
     %check for visibility of all edges
     %add visible edges to output
     for i=1:length(allEdges)
         visible=1;
-        for j=1:length(polyEdges)
-            if(intersects(squeeze(allEdges(i,:,:)),squeeze(polyEdges(j,:,:)))==1)
+        for j=1:length(polygonEdges)
+            if(intersects(squeeze(allEdges(i,:,:)),squeeze(polygonEdges(j,:,:)))==1)
                 visible=0;
             elseif(insideObject(squeeze(allEdges(i,:,:)),objects)==1)
                 visible=0;
