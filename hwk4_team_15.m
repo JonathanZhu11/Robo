@@ -65,8 +65,14 @@ function hwk4_team_15(start_goal, environment)
     map_out = figure('Name', 'Environment');    
     hold on;
     
+    %map out all possible paths
+    
+     for i=1:length(edges)
+         plot([edges{i}(1,1),edges{i}(2,1)],[edges{i}(1,2),edges{i}(2,2)],'r');
+     end
+
     %map out the boundary
-    fill(boundary(:,1),boundary(:,2),'w');
+    plot(boundary(:,1),boundary(:,2),'b');
     
     %map out the objects in the map
     for i=2:numObjects
@@ -75,12 +81,6 @@ function hwk4_team_15(start_goal, environment)
         ob=objects{i};
         fill(ob(1:numVertices(i),1),ob(1:numVertices(i),2),'g');
     end
-
-    %map out all possible paths
-    
-     for i=1:length(edges)
-         plot([edges{i}(1,1),edges{i}(2,1)],[edges{i}(1,2),edges{i}(2,2)],'r');
-     end
 
     %map start and end points
     plot(start(1), start(2), 'o', 'markersize', 15);
