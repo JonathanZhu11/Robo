@@ -1,18 +1,20 @@
 %start is a point
 %goal is a point
 %objects is a cell array of polygons
-function [vertices, edges] = visibilityGraph(start, goal, objects, boundary)
+function [vertices, edges] = visibilityGraph(start, goal, objects)
     
     precision = 0.0001;
-
+    
+    boundary = objects{1};
+    boundary = roundto(boundary, precision);
+    
     numObjects = length(objects);
     polygonEdges = cell(1,1);
-    %1st index = edge index
-    %2nd index = vertex index
-    %3rd index = x or y value
+    
     vertices = zeros(numObjects+2, 2);
     vertices(1,:) = start;
     vertices(2,:) = goal;
+    
     %generate a list of all vertices and polygon edges
     sizePoly=1;
     sizeVert=3;
@@ -29,15 +31,34 @@ function [vertices, edges] = visibilityGraph(start, goal, objects, boundary)
             sizePoly=sizePoly+1;
         end
     end
+    
     vertices = roundto(vertices, precision);
     vertices = removeVerticesInsideObjects(vertices, objects(2:end));
     vertices = removeVerticesOutsideBoundary(vertices, boundary);
+    
     allEdges = findAllEdges(vertices);
+    
     edges = {};
+    
     %check for visibility of all edges
     %add visible edges to output
+    edges = {};
+    for i=1:length(polygonEdges)
+        polygonEdges{i} = roundto(polygonEdges{i}, precision);
+        visible=1;
+        for n=2:length(polygonEdges)
+            polygonEdges{n} = roundto(polygonEdges{n}, precision);
+            if(intersects(polygonEdges{i},polygonEdges{n})==1)
+                visible=0;
+            end
+        end
+        if(visible==1)
+            edges{length(edges)+1}=polygonEdges{i};
+        end
+    end
     
-    edges = polygonEdges;
+    
+    
     for i=1:length(allEdges)
         allEdges{i} = roundto(allEdges{i}, precision);
         visible=1;
@@ -53,9 +74,7 @@ function [vertices, edges] = visibilityGraph(start, goal, objects, boundary)
             edges{length(edges)+1}=allEdges{i};
         end
     end
-    
-    
-        
+%     edges = allEdges;
 end
 
 

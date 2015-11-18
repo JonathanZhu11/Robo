@@ -48,24 +48,26 @@ function hwk4_team_15(start_goal, environment)
         %store each obstacle's points in a matrix within objects
         objects{i,1}=obj;
         %grow obstacles
-        grownObjects{i,1} = convexHull(obj,ROOMBA_DIA/2);
+        if i ~= 1
+            grownObjects{i,1} = convexHull(obj,ROOMBA_DIA/2);
+        end
     end
     
     %first obstacle --> environement wall
     boundary = objects{1,1};
-%     grownObjects(1,:) = [];
-%     objects(1,:) = [];
-%     numVertices(1) = [];
+     grownObjects{1} = boundary;
 
     %find visibility Graph
-    [verts,edges] = visibilityGraph(start,goal,grownObjects(2:end), boundary);
+    [verts,edges] = visibilityGraph(start,goal,grownObjects);
     
     %%%%% GUI MAP DISPLAY %%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%
     map_out = figure('Name', 'Environment');    
     hold on;
+    
     %map out the boundary
     fill(boundary(:,1),boundary(:,2),'w');
+    
     %map out the objects in the map
     for i=2:numObjects
         grown_ob = grownObjects{i};
