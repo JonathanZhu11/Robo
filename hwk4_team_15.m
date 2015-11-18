@@ -84,7 +84,7 @@ function hwk4_team_15(start_goal, environment)
     %map start and end points
     plot(start(1), start(2), 'o', 'markersize', 15);
     plot(goal(1), goal(2), 'o', 'markersize', 15);
-    %camroll(90); %turn graph by 90degrees to match assignment pic
+    camroll(90); %turn graph by 90degrees to match assignment pic
 
 toc
 end

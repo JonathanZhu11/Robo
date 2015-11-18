@@ -16,16 +16,18 @@ function [vertices, edges] = visibilityGraph(start, goal, objects)
     for i=1:numObjects
         obj = objects{i};
         obj = vertcat(obj(length(obj),:), obj);
-        for j=2:length(obj)
+        disp(obj)
+        for j=1:length(obj)-1
             vertices(sizeVert,:)=obj(j,:);
-            polygonEdges(sizePoly,:,:)=obj(j-1:j,:);
+            polygonEdges(sizePoly,:,1)=obj(j,:);
+            polygonEdges(sizePoly,:,2)=obj(j+1,:);
             sizeVert=sizeVert+1;
             sizePoly=sizePoly+1;
         end
     end
     
     allEdges = findAllEdges(vertices);
-    
+    allEdges
     edges = polygonEdges;
     %check for visibility of all edges
     %add visible edges to output
