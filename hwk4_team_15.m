@@ -59,7 +59,7 @@ function hwk4_team_15(start_goal, environment)
 
     %find visibility Graph
     [verts,edges] = visibilityGraph(start,goal,grownObjects);
-    
+    path = dijkstra(start, goal, verts, edges);
     %%%%% GUI MAP DISPLAY %%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%
     map_out = figure('Name', 'Environment');    
@@ -87,5 +87,8 @@ function hwk4_team_15(start_goal, environment)
     plot(goal(1), goal(2), 'o', 'markersize', 15);
     camroll(90); %turn graph by 90degrees to match assignment pic
 
+     for i=1:length(path)-1
+         plot([path(i,1),path(i+1,1)],[path(i,2),path(i+1,2)],'k', 'LineWidth',2);
+     end
 toc
 end
