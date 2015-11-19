@@ -1,3 +1,11 @@
+% Team 15
+% Jonathan Zhu jhz2110@columbia.edu
+% Adam Richardson ajr2190@columbia.edu
+% Lennart Graf von Hardenberg lcg2132@columbia.edu
+
+% Homework 4 Solution - Nov-16-2015
+% creates and finds variables for visibility graph
+
 %start is a point
 %goal is a point
 %objects is a cell array of polygons

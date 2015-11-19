@@ -1,3 +1,12 @@
+% Team 15
+% Jonathan Zhu jhz2110@columbia.edu
+% Adam Richardson ajr2190@columbia.edu
+% Lennart Graf von Hardenberg lcg2132@columbia.edu
+
+% Homework 4 Solution - Nov-16-2015
+
+% calculates grown edges of the obstacles given the radius of the robot
+
 function newObject = convexHull(object, r)
 %first append the last element to the front and the front element to the
 %end
