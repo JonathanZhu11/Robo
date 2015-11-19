@@ -57,7 +57,7 @@ function path = dijkstra(start, goal, vertices, edges)
         if(vnodes(gIndex,4)==-1)
             break;
         end
-        gIndex=vnodes(gIndex,5);
+        gIndex=vnodes(gIndex,4);
     end
     
     path=flipud(path);
