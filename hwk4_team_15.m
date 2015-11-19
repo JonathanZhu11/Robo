@@ -8,8 +8,8 @@
 %start_goal is text file containing start and goal points
 %environment is text file containing all obstacles of environment
 
-function hwk4_team_15(start_goal, environment)
-    tic
+function [path, grownObjects] = hwk4_team_15(start_goal, environment)
+    %tic
     ROOMBA_DIA = 0.35;
     
     %read in values from start_goal.txt file
@@ -83,12 +83,13 @@ function hwk4_team_15(start_goal, environment)
     end
 
     %map start and end points
-    plot(start(1), start(2), 'o', 'markersize', 15);
-    plot(goal(1), goal(2), 'o', 'markersize', 15);
+    plot(start(1), start(2), 'o', 'markersize', 15,'LineWidth',2, 'MarkerEdgeColor','c', 'MarkerFaceColor','c');
+    plot(goal(1), goal(2), 'o', 'markersize', 15,'LineWidth',2, 'MarkerEdgeColor','g', 'MarkerFaceColor','g');
+    
+    for i=1:length(path)-1
+     plot([path(i,1),path(i+1,1)],[path(i,2),path(i+1,2)],'k', 'LineWidth',2);
+    end
     camroll(90); %turn graph by 90degrees to match assignment pic
 
-     for i=1:length(path)-1
-         plot([path(i,1),path(i+1,1)],[path(i,2),path(i+1,2)],'k', 'LineWidth',2);
-     end
-toc
+%toc
 end
