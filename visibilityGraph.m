@@ -44,16 +44,19 @@ function [vertices, edges] = visibilityGraph(start, goal, objects)
     %add visible edges to output
     edges = {};
     for i=1:length(polygonEdges)
+        
         polygonEdges{i} = roundto(polygonEdges{i}, precision);
-        visible=1;
-        for n=2:length(polygonEdges)
-            polygonEdges{n} = roundto(polygonEdges{n}, precision);
-            if(intersects(polygonEdges{i},polygonEdges{n})==1)
-                visible=0;
+        if ismember(polygonEdges{i}, vertices, 'rows')
+            visible=1;
+            for n=2:length(polygonEdges)
+                polygonEdges{n} = roundto(polygonEdges{n}, precision);
+                if(intersects(polygonEdges{i},polygonEdges{n})==1)
+                    visible=0;
+                end
             end
-        end
-        if(visible==1)
-            edges{length(edges)+1}=polygonEdges{i};
+            if(visible==1)
+                edges{length(edges)+1}=polygonEdges{i};
+            end
         end
     end
     
